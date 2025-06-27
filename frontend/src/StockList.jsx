@@ -1,4 +1,3 @@
-// Shows 10 international + 10 Indian tickers on a “ruled-paper” card
 export default function StockList() {
   const intl = ["AAPL", "MSFT", "TSLA", "AMZN", "GOOGL",
                 "NVDA", "META", "JPM", "KO", "XOM"];
