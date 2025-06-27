@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import yfinance as yf
-from predictor import predict_stock
+from app.predictor import classify_stock   
 
 app = FastAPI(title="SnapChart API")
 
@@ -20,6 +20,6 @@ def analyze_stock(ticker: str):
         return {"error": "Invalid ticker or data unavailable."}
     return {
         "ticker": ticker.upper(),
-        "prediction": predict_stock(info),
+        "prediction": classify_stock(info),
         "data": info,
     }
