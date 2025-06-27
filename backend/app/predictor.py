@@ -1,5 +1,25 @@
-def predict_stock(info: dict) -> str:
-    pe           = info.get("trailingPE", 0)                  # P/E ratio
-    eps_growth   = info.get("earningsQuarterlyGrowth", 0)     # QoQ EPS growth
-    debt_equity  = info.get("debtToEquity", 0)                # leverage
-    return "Buy" if pe < 20 and eps_growth > 0.10 and debt_equity < 100 else "Sell"
+def classify_stock(info: dict) -> str:
+    pe          = info.get("trailingPE",  999)
+    peg         = info.get("trailingPegRatio",  999)
+    roe         = info.get("returnOnEquity",    0)
+    eps_g       = info.get("earningsQuarterlyGrowth", 0)
+    de_ratio    = info.get("debtToEquity",      999)
+    price       = info.get("currentPrice",      0)
+    sma50       = info.get("fiftyDayAverage",   1)
+
+    if (
+        peg < 1.5 and
+        roe > 0.15 and
+        de_ratio < 100 and
+        eps_g > 0.05
+    ):
+        return "long_term"
+
+    if (
+        pe < 35 and
+        eps_g > 0.10 and
+        price > sma50
+    ):
+        return "mid_term"
+
+    return "watchlist"
